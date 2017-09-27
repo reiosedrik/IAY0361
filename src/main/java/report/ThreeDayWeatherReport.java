@@ -1,7 +1,9 @@
 package report;
 
 import coordinate.Coordinate;
+import org.omg.CORBA.INTERNAL;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 public class ThreeDayWeatherReport {
@@ -13,6 +15,7 @@ public class ThreeDayWeatherReport {
     private String city;
     private Coordinate coordinate;
 
+
     public int getLowestTemperatureForDay(String day) {
         return 0;
     }
@@ -21,11 +24,15 @@ public class ThreeDayWeatherReport {
         return 0;
     }
 
-    public String getLowestTemperatures() {
+    public ArrayList<String> getDays() {
         return null;
     }
 
-    public String getHighestTemperatures() {
+    public Map<String, Integer> getLowestTemperatures() {
+        return null;
+    }
+
+    public Map<String, Integer> getHighestTemperatures() {
         return null;
     }
 
