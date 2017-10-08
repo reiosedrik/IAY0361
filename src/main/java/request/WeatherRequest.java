@@ -11,7 +11,7 @@ public class WeatherRequest {
     private String key;
     private String URL;
     private String city;
-    private String unit;
+    private String units;
 
 
     private BufferedReader reader;
@@ -23,9 +23,19 @@ public class WeatherRequest {
     private String temporaryStr;
     private String response;
 
-    public WeatherRequest(String city, String unit) {
+    public WeatherRequest(String city, String units) {
         this.city = city;
-        this.unit = unit;
+        this.units = units;
+        key = "bf1fda8842fddc67d78c7aced108cc2d";
+        createURL();
+    }
+
+    private void createURL() {
+        requestAddress = "http://api.openweathermap.org/data/2.5/forecast?q="
+                + city
+                + "&units=" + units
+                + "&APPID="
+                + key;
     }
 
     public String getJSONFromURL() {
@@ -93,7 +103,7 @@ public class WeatherRequest {
         return city;
     }
 
-    public String getUnit() {
-        return unit;
+    public String getUnits() {
+        return units;
     }
 }

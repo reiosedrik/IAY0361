@@ -4,15 +4,19 @@ import coordinate.Coordinate;
 
 public class CurrentWeatherReport {
 
-    private int currentTemperature;
+    private double currentTemperature;
     private String city;
     private Coordinate coordinate;
 
-    public int getCurrentTemperature() {
+    public double getCurrentTemperature() {
         return currentTemperature;
     }
 
-    public void setCurrentTemperature(int currentTemperature) {
+    public String getInfo() {
+        return String.format("%s: Praegune temperatuur on %s\u00b0C",city, Double.toString(currentTemperature));
+    }
+
+    public void setCurrentTemperature(double currentTemperature) {
         this.currentTemperature = currentTemperature;
     }
 

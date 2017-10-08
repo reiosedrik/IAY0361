@@ -1,3 +1,5 @@
+package report;
+
 import org.junit.Test;
 import report.CurrentWeatherReport;
 import report.ThreeDayWeatherReport;
