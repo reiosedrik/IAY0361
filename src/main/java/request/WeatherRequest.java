@@ -1,8 +1,6 @@
 package request;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -64,10 +62,13 @@ public class WeatherRequest {
 
     private void readFromConnection() {
         try {
-            reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            InputStreamReader r = new InputStreamReader(connection.getInputStream());
+            reader = new BufferedReader(r);
             while ((temporaryStr = reader.readLine()) != null) {
                 response = temporaryStr;
             }
+        }catch (FileNotFoundException e) {
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
             response = null;

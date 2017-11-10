@@ -1,18 +1,19 @@
 package report;
 
-import coordinate.Coordinate;
 
 public class CurrentWeatherReport {
 
     private double currentTemperature;
     private String city;
-    private Coordinate coordinate;
 
     public double getCurrentTemperature() {
         return currentTemperature;
     }
 
     public String getInfo() {
+        if (city == null) {
+            return "";
+        }
         return String.format("%s: Praegune temperatuur on %s\u00b0C",city, Double.toString(currentTemperature));
     }
 
@@ -28,11 +29,4 @@ public class CurrentWeatherReport {
         this.city = city;
     }
 
-    public Coordinate getCoordinate() {
-        return coordinate;
-    }
-
-    public void setCoordinate(Coordinate coordinate) {
-        this.coordinate = coordinate;
-    }
 }

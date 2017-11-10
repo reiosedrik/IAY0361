@@ -1,5 +1,6 @@
 package repository;
 
+import report.CoordinateReport;
 import report.CurrentWeatherReport;
 import report.ThreeDayWeatherReport;
 import request.WeatherRequest;
@@ -38,11 +39,37 @@ public class WeatherRepository {
         return report;
     }
 
+    public CoordinateReport getCoordinateReport(WeatherRequest request) {
+        getWeatherDataAsLines(request);
+        CoordinateReport report = new CoordinateReport(loopThroughLinesForCoordinate());
+        report.setCity(request.getCity());
+        return report;
+    }
+
     public void getWeatherDataAsLines(WeatherRequest request) {
         String outputFromRequest = request.getJSONFromURL();
         lines = getLinesFromOutput(outputFromRequest);
     }
 
+    public String loopThroughLinesForCoordinate() {
+        String coord = "";
+        for (String line : lines) {
+            try {
+                if (line.substring(1, 6).equals("coord")) {
+                    String x = line.substring(15);
+                    coord = coord.concat(x.split("\\.")[0]);
+                }
+                if (line.substring(1, 4).equals("lon")) {
+                    String y = line.substring(6, line.length() - 1);
+                    coord = coord.concat(":");
+                    coord = coord.concat(y.split("\\.")[0]);
+                }
+            } catch (StringIndexOutOfBoundsException e) {
+                //
+            }
+        }
+        return coord;
+    }
 
     public String loopThroughLinesForFirstTemperature() {
         String temperature = "";

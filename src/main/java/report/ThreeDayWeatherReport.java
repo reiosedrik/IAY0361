@@ -1,6 +1,5 @@
 package report;
 
-import coordinate.Coordinate;
 import org.omg.CORBA.INTERNAL;
 
 import java.util.ArrayList;
