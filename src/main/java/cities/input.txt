@@ -1,2 +1,3 @@
-helsinki
-Paris
+tallinn
+madrid
+oslo
