@@ -1,0 +1,6 @@
+california
+Coordinates: 38:-76
+Monday: min temp: -3.75°C, max temp: 7.05°C.
+Tuesday: min temp: 2.38°C, max temp: 9.25°C.
+Wednesday: min temp: -3.47°C, max temp: 1.26°C.
+Current temperature: 2.62°C

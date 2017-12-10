@@ -19,23 +19,30 @@ public class ThreeDayWeatherReport {
     String day2Highest;
     String day3Lowest;
     String day3Highest;
-
     private String city;
+    private String temperatureSymbol;
+
+    public ThreeDayWeatherReport(String units) {
+        if (units.equals("imperial")) {
+            temperatureSymbol = "\u00b0F";
+        } else {
+            temperatureSymbol = "\u00b0C";
+        }
+    }
 
     public String getInfo() {
 
-        day1Lowest = Double.toString(Collections.min(temperaturesForDay1));
-        day1Highest = Double.toString(Collections.max(temperaturesForDay1));
-        day2Lowest = Double.toString(Collections.min(temperaturesForDay2));
-        day2Highest = Double.toString(Collections.max(temperaturesForDay2));
-        day3Lowest = Double.toString(Collections.min(temperaturesForDay3));
-        day3Highest = Double.toString(Collections.max(temperaturesForDay3));
+        day1Lowest = Double.toString(Collections.min(temperaturesForDay1)) + temperatureSymbol;
+        day1Highest = Double.toString(Collections.max(temperaturesForDay1)) + temperatureSymbol;
+        day2Lowest = Double.toString(Collections.min(temperaturesForDay2)) + temperatureSymbol;
+        day2Highest = Double.toString(Collections.max(temperaturesForDay2)) + temperatureSymbol;
+        day3Lowest = Double.toString(Collections.min(temperaturesForDay3)) + temperatureSymbol;
+        day3Highest = Double.toString(Collections.max(temperaturesForDay3)) + temperatureSymbol;
 
 
-        return String.format("%s:\n%s: madalaim temperatuur: %s\u00b0C, kõrgeim temperatuur: %s\u00b0C.\n" +
-                "%s: madalaim temperatuur: %s\u00b0C, kõrgeim temperatuur: %s\u00b0C.\n" +
-                "%s: madalaim temperatuur: %s\u00b0C, kõrgeim temperatuur: %s\u00b0C.",
-                city,
+        return String.format("\n%s: min temp: %s, max temp: %s.\n" +
+                "%s: min temp: %s, max temp: %s.\n" +
+                "%s: min temp: %s, max temp: %s.",
                 threeDays.get(0), day1Lowest, day1Highest,
                 threeDays.get(1), day2Lowest, day2Highest,
                 threeDays.get(2), day3Lowest, day3Highest);

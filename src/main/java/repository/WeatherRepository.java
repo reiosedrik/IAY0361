@@ -17,14 +17,17 @@ public class WeatherRepository {
     private String day1FromNow;
     private String day2FromNow;
     private String day3FromNow;
+    private String units;
 
+    public WeatherRepository(String units) {
+        this.units = units;
+    }
 
     public CurrentWeatherReport getCurrentWeatherReport(WeatherRequest request) {
         getWeatherDataAsLines(request);
         String temperature = loopThroughLinesForFirstTemperature();
-        CurrentWeatherReport currentWeatherReport = new CurrentWeatherReport();
+        CurrentWeatherReport currentWeatherReport = new CurrentWeatherReport(units);
         currentWeatherReport.setCurrentTemperature(Double.parseDouble(temperature));
-        currentWeatherReport.setCity(request.getCity());
         return currentWeatherReport;
     }
 
@@ -32,7 +35,7 @@ public class WeatherRepository {
         getWeatherDataAsLines(request);
         getNextThreeDaysFromNow();
         loopThroughLinesForThreeDays();
-        ThreeDayWeatherReport report = new ThreeDayWeatherReport();
+        ThreeDayWeatherReport report = new ThreeDayWeatherReport(units);
         report.setTemperatures(temperaturesForDay1, temperaturesForDay2, temperaturesForDay3);
         report.setDays(day1FromNow, day2FromNow, day3FromNow);
         report.setCity(request.getCity());
@@ -42,7 +45,6 @@ public class WeatherRepository {
     public CoordinateReport getCoordinateReport(WeatherRequest request) {
         getWeatherDataAsLines(request);
         CoordinateReport report = new CoordinateReport(loopThroughLinesForCoordinate());
-        report.setCity(request.getCity());
         return report;
     }
 
@@ -146,14 +148,14 @@ public class WeatherRepository {
         int unixTime = Integer.parseInt(unixTimeStamp);
         Date date = new Date();
         date.setTime((long) unixTime * 1000);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE", Locale.ENGLISH);
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC +02:00"));
         return dateFormat.format(date);
     }
 
     public String getNthDayFromNow(int n) {
         Date date = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE", Locale.ENGLISH);
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC +02:00"));
         date = addNDaysToDate(date, n);
         return dateFormat.format(date);

@@ -1,18 +1,6 @@
 tallinn:
-esmaspäev: madalaim temperatuur: 3.83°C, kõrgeim temperatuur: 5.55°C.
-teisipäev: madalaim temperatuur: 3.29°C, kõrgeim temperatuur: 5.29°C.
-kolmapäev: madalaim temperatuur: 3.55°C, kõrgeim temperatuur: 6.82°C.
-tallinn: Praegune temperatuur on 2.49°C
+esmaspäev: madalaim temperatuur: -2.77°C, kõrgeim temperatuur: 0.9°C.
+teisipäev: madalaim temperatuur: 1.61°C, kõrgeim temperatuur: 4.06°C.
+kolmapäev: madalaim temperatuur: 0.9°C, kõrgeim temperatuur: 2.9°C.
+tallinn: Praegune temperatuur on -1.71°C
 tallinn: Koordinaadid on: 59:24
-madrid:
-esmaspäev: madalaim temperatuur: -0.6°C, kõrgeim temperatuur: 12.45°C.
-teisipäev: madalaim temperatuur: -3.35°C, kõrgeim temperatuur: 12.36°C.
-kolmapäev: madalaim temperatuur: -2.86°C, kõrgeim temperatuur: 14.2°C.
-madrid: Praegune temperatuur on 4.74°C
-madrid: Koordinaadid on: 40:-3
-oslo:
-esmaspäev: madalaim temperatuur: -5.98°C, kõrgeim temperatuur: 2.65°C.
-teisipäev: madalaim temperatuur: -6.27°C, kõrgeim temperatuur: 0.34°C.
-kolmapäev: madalaim temperatuur: -5.15°C, kõrgeim temperatuur: 4.32°C.
-oslo: Praegune temperatuur on 5.97°C
-oslo: Koordinaadid on: 59:10

@@ -1,0 +1,6 @@
+new york
+Coordinates: 40:-74
+Monday: min temp: -0.97°C, max temp: 0.85°C.
+Tuesday: min temp: -1.37°C, max temp: 3.74°C.
+Wednesday: min temp: -6.17°C, max temp: 1.96°C.
+Current temperature: -1.06°C

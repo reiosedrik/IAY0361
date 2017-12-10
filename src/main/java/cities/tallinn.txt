@@ -1,0 +1,6 @@
+tallinn
+Coordinates: 59:24
+Monday: min temp: 27.01°F, max temp: 33.63°F.
+Tuesday: min temp: 34.9°F, max temp: 39.3°F.
+Wednesday: min temp: 33.61°F, max temp: 37.22°F.
+Current temperature: 28.92°F

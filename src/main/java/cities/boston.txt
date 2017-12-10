@@ -1,0 +1,7 @@
+boston
+Coordinates: 42:-71
+
+Monday: min temp: 0.01°C, max temp: 2.4°C.
+Tuesday: min temp: -1.74°C, max temp: 6.92°C.
+Wednesday: min temp: -4.61°C, max temp: 4.96°C.
+Current temperature: -3.74°C
