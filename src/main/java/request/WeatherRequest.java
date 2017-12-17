@@ -1,5 +1,7 @@
 package request;
 
+import exceptions.WrongCityNameException;
+
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -7,7 +9,7 @@ import java.net.URL;
 public class WeatherRequest {
 
     private String key;
-    private String URL;
+//    private String URL;
     private String city;
     private String units;
 
@@ -36,7 +38,7 @@ public class WeatherRequest {
                 + key;
     }
 
-    public String getJSONFromURL() {
+    public String getJSONFromURL() throws WrongCityNameException {
         setupConnection();
         readFromConnection();
         disconnect();
@@ -60,15 +62,16 @@ public class WeatherRequest {
         }
     }
 
-    private void readFromConnection() {
+    private void readFromConnection() throws WrongCityNameException {
         try {
+//            System.out.println(connection.getInputStream());
             InputStreamReader r = new InputStreamReader(connection.getInputStream());
             reader = new BufferedReader(r);
             while ((temporaryStr = reader.readLine()) != null) {
                 response = temporaryStr;
             }
-        }catch (FileNotFoundException e) {
-            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            throw new WrongCityNameException("Please enter correct name for cities.");
         } catch (IOException e) {
             e.printStackTrace();
             response = null;
@@ -84,20 +87,8 @@ public class WeatherRequest {
     }
 
 
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
-
-    public String getURL() {
-        return URL;
-    }
-
-    public void setURL(String URL) {
-        this.URL = URL;
+    public String getRequestAddress() {
+        return requestAddress;
     }
 
     public String getCity() {

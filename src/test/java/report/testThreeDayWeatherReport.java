@@ -1,5 +1,6 @@
 package report;
 
+import exceptions.WrongCityNameException;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -20,42 +21,34 @@ public class testThreeDayWeatherReport {
     WeatherRepository repository;
 
     @Before
-    public void makeRequest() {
+    public void makeRequest() throws WrongCityNameException {
         request = new WeatherRequest("Tallinn", "metric");
-        repository = new WeatherRepository();
-    }
-
-    @Test
-    public void testIfCityEqualsRequestCity() {
-        WeatherRequest request = new WeatherRequest("Tallinn", "metric");
-        WeatherRepository repository = new WeatherRepository();
-        ThreeDayWeatherReport report = repository.getThreeDayWeatherReport(request);
-        assertEquals(report.getCity(), "Tallinn");
+        repository = new WeatherRepository(request);
     }
 
 
     @Test
     public void testIfReportReturnsTemperaturesForThreeDays() {
-        ThreeDayWeatherReport report = repository.getThreeDayWeatherReport(request);
+        ThreeDayWeatherReport report = repository.getThreeDayWeatherReport();
         List<String> days = report.threeDays;
         assertEquals(days.size(), 3);
     }
 
     @Test
     public void testIfHighestTemperatureISHigherThanLowestDay2() {
-        ThreeDayWeatherReport report = repository.getThreeDayWeatherReport(request);
+        ThreeDayWeatherReport report = repository.getThreeDayWeatherReport();
         report.getInfo();
-        double highest = Double.parseDouble(report.day2Highest);
-        double lowest = Double.parseDouble(report.day2Lowest);
+        double highest = Double.parseDouble(report.day2Highest.split("\u00b0")[0]);
+        double lowest = Double.parseDouble(report.day2Lowest.split("\u00b0")[0]);
         assertTrue(lowest < highest);
     }
 
     @Test
     public void testIfHighestTemperatureISHigherThanLowestDay1() {
-        ThreeDayWeatherReport report = repository.getThreeDayWeatherReport(request);
+        ThreeDayWeatherReport report = repository.getThreeDayWeatherReport();
         report.getInfo();
-        double highest = Double.parseDouble(report.day1Highest);
-        double lowest = Double.parseDouble(report.day1Lowest);
+        double highest = Double.parseDouble(report.day1Highest.split("\u00b0")[0]);
+        double lowest = Double.parseDouble(report.day1Lowest.split("\u00b0")[0]);
         assertTrue(lowest < highest);
     }
 

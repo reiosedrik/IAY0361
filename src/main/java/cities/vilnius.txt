@@ -1,0 +1,6 @@
+vilnius
+Coordinates: 54.6:25.2
+Sunday: min temp: -2.16°C, max temp: 1.07°C.
+Monday: min temp: -8.5°C, max temp: -1.36°C.
+Tuesday: min temp: -4.97°C, max temp: -1.39°C.
+Current temperature: 2.86°C

@@ -1,0 +1,6 @@
+athens
+Coordinates: 34.8:-86.9
+Saturday: min temp: -4.68°C, max temp: 10.79°C.
+Sunday: min temp: 1.69°C, max temp: 9.88°C.
+Monday: min temp: 9.58°C, max temp: 15.61°C.
+Current temperature: 14.6°C

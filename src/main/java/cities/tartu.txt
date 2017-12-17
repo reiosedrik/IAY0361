@@ -1,0 +1,6 @@
+tartu
+Coordinates: 58.3:26.7
+Monday: min temp: -3.48°C, max temp: -0.55°C.
+Tuesday: min temp: -7.89°C, max temp: -3.71°C.
+Wednesday: min temp: -11.88°C, max temp: -7.95°C.
+Current temperature: -6.14°C

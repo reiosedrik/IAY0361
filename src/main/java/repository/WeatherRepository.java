@@ -1,5 +1,6 @@
 package repository;
 
+import exceptions.WrongCityNameException;
 import report.CoordinateReport;
 import report.CurrentWeatherReport;
 import report.ThreeDayWeatherReport;
@@ -18,37 +19,39 @@ public class WeatherRepository {
     private String day2FromNow;
     private String day3FromNow;
     private String units;
+    private Date currentDate = new Date();
 
-    public WeatherRepository(String units) {
-        this.units = units;
+    public WeatherRepository(WeatherRequest request) throws WrongCityNameException {
+        this.units = request.getUnits();
+        getWeatherDataAsLines(request);
     }
 
-    public CurrentWeatherReport getCurrentWeatherReport(WeatherRequest request) {
-        getWeatherDataAsLines(request);
+    public WeatherRepository() {
+    }
+
+    public CurrentWeatherReport getCurrentWeatherReport() {
         String temperature = loopThroughLinesForFirstTemperature();
         CurrentWeatherReport currentWeatherReport = new CurrentWeatherReport(units);
         currentWeatherReport.setCurrentTemperature(Double.parseDouble(temperature));
         return currentWeatherReport;
     }
 
-    public ThreeDayWeatherReport getThreeDayWeatherReport(WeatherRequest request) {
-        getWeatherDataAsLines(request);
-        getNextThreeDaysFromNow();
-        loopThroughLinesForThreeDays();
+    public ThreeDayWeatherReport getThreeDayWeatherReport() {
+        getNextThreeDaysFrom(currentDate);
+        loopThroughLinesForThreeDayTemperatures();
         ThreeDayWeatherReport report = new ThreeDayWeatherReport(units);
         report.setTemperatures(temperaturesForDay1, temperaturesForDay2, temperaturesForDay3);
         report.setDays(day1FromNow, day2FromNow, day3FromNow);
-        report.setCity(request.getCity());
         return report;
     }
 
-    public CoordinateReport getCoordinateReport(WeatherRequest request) {
-        getWeatherDataAsLines(request);
+
+    public CoordinateReport getCoordinateReport() {
         CoordinateReport report = new CoordinateReport(loopThroughLinesForCoordinate());
         return report;
     }
 
-    public void getWeatherDataAsLines(WeatherRequest request) {
+    public void getWeatherDataAsLines(WeatherRequest request) throws WrongCityNameException {
         String outputFromRequest = request.getJSONFromURL();
         lines = getLinesFromOutput(outputFromRequest);
     }
@@ -57,20 +60,43 @@ public class WeatherRepository {
         String coord = "";
         for (String line : lines) {
             try {
-                if (line.substring(1, 6).equals("coord")) {
-                    String x = line.substring(15);
-                    coord = coord.concat(x.split("\\.")[0]);
-                }
-                if (line.substring(1, 4).equals("lon")) {
-                    String y = line.substring(6, line.length() - 1);
-                    coord = coord.concat(":");
-                    coord = coord.concat(y.split("\\.")[0]);
+                if (latitudeIsAtCurrent(line)) {
+                    coord = coord.concat(getLatitudeFrom(line));
+                } else if (longitudeIsAtCurrent(line)) {
+                    coord = coord.concat(getLongitudeFrom(line));
                 }
             } catch (StringIndexOutOfBoundsException e) {
-                //
+                // not important line
             }
         }
         return coord;
+    }
+
+    private boolean longitudeIsAtCurrent(String line) {
+        return line.substring(1, 4).equals("lon");
+    }
+
+    private boolean latitudeIsAtCurrent(String line) {
+        return line.substring(1, 6).equals("coord");
+    }
+
+    private String getLongitudeFrom(String line) {
+        String y = line.substring(6, line.length() - 1);
+        if (y.charAt(0) == '-') {
+            return ":" + y.substring(0, 5);
+        } else {
+            return ":" + y.substring(0, 4);
+        }
+
+    }
+
+    private String getLatitudeFrom(String line) {
+        String x = line.substring(15);
+        if (x.charAt(0) == '-') {
+            return x.substring(0, 5);
+        } else {
+            return x.substring(0, 4);
+        }
     }
 
     public String loopThroughLinesForFirstTemperature() {
@@ -78,7 +104,7 @@ public class WeatherRepository {
         for (String line : lines) {
             try {
                 if (line.substring(9, 13).equals("temp")) {
-                    temperature =  line.substring(15);
+                    temperature = line.substring(15);
                 }
             } catch (StringIndexOutOfBoundsException e) {
                 // occurs only with lines we don't need
@@ -88,20 +114,17 @@ public class WeatherRepository {
     }
 
 
-    public void loopThroughLinesForThreeDays() {
+    public void loopThroughLinesForThreeDayTemperatures() {
         String day = null;
-
         for (String line : lines) {
             try {
                 String newDay = checkLineForDay(line);
                 if (newDay != null) {
                     day = newDay;
                 }
-
                 if (day != null) {
-//                    System.out.println(line + "     " + line.substring(9, 13));
                     if (line.substring(9, 13).equals("temp")) {
-                       addTemperatureForDay(day, line);
+                        addTemperatureForDay(day, line);
                     }
                 }
             } catch (StringIndexOutOfBoundsException e) {
@@ -129,10 +152,10 @@ public class WeatherRepository {
         return null;
     }
 
-    private void getNextThreeDaysFromNow() {
-        day1FromNow = getNthDayFromNow(1);
-        day2FromNow = getNthDayFromNow(2);
-        day3FromNow = getNthDayFromNow(3);
+    public void getNextThreeDaysFrom(Date date) {
+        day1FromNow = getNthDayFrom(date,1);
+        day2FromNow = getNthDayFrom(date,2);
+        day3FromNow = getNthDayFrom(date,3);
     }
 
     public double getTemperatureFromLine(String line) {
@@ -140,8 +163,8 @@ public class WeatherRepository {
     }
 
     public List<String> getLinesFromOutput(String output) {
-        String[] lines = output.split(",");
-        return Arrays.asList(lines);
+            String[] lines = output.split(",");
+            return Arrays.asList(lines);
     }
 
     public String getDayFromUNIX(String unixTimeStamp) {
@@ -153,23 +176,23 @@ public class WeatherRepository {
         return dateFormat.format(date);
     }
 
-    public String getNthDayFromNow(int n) {
-        Date date = new Date();
+    public String getNthDayFrom(Date date, int n) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE", Locale.ENGLISH);
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC +02:00"));
         date = addNDaysToDate(date, n);
         return dateFormat.format(date);
     }
 
-    public Date addNDaysToDate(Date date, int amount) {
+    public Date addNDaysToDate(Date date, int daysToAdd) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
-        calendar.add(Calendar.DATE, amount);
+        calendar.add(Calendar.DATE, daysToAdd);
         return calendar.getTime();
     }
 
-    public List<String> getLines() {
-        return lines;
+
+    public List<Double> getTemperaturesForDay3() {
+        return temperaturesForDay3;
     }
 
     public List<Double> getTemperaturesForDay1() {
@@ -180,19 +203,15 @@ public class WeatherRepository {
         return temperaturesForDay2;
     }
 
-    public List<Double> getTemperaturesForDay3() {
-        return temperaturesForDay3;
+    public void setLines(List<String> lines) {
+        this.lines = lines;
     }
 
-    public String getDay1FromNow() {
-        return day1FromNow;
+    public void setUnits(String units) {
+        this.units = units;
     }
 
-    public String getDay2FromNow() {
-        return day2FromNow;
-    }
-
-    public String getDay3FromNow() {
-        return day3FromNow;
+    public void setCurrentDate(Date currentDate) {
+        this.currentDate = currentDate;
     }
 }

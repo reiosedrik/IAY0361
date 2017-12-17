@@ -1,0 +1,6 @@
+parnu
+Coordinates: 58.3:24.4
+Sunday: min temp: -0.94°C, max temp: 1.42°C.
+Monday: min temp: -1.09°C, max temp: 0.35°C.
+Tuesday: min temp: -0.91°C, max temp: 1.8°C.
+Current temperature: 1.81°C

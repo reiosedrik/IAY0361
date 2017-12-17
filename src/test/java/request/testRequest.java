@@ -1,10 +1,13 @@
 package request;
 
+import exceptions.WrongCityNameException;
 import org.junit.Before;
 import org.junit.Test;
 import request.WeatherRequest;
 
 import static junit.framework.TestCase.assertFalse;
+import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 public class testRequest {
 
@@ -16,7 +19,25 @@ public class testRequest {
     }
 
     @Test
-    public void testResponseNotNull() {
+    public void testResponseNotNull() throws WrongCityNameException {
         assertFalse(weatherRequest.getJSONFromURL() == null);
     }
+
+    @Test
+    public void testIfCityIsCorrect() {
+        assertEquals("Tallinn", weatherRequest.getCity());
+    }
+
+    @Test
+    public void testIfUnitsAreCorrect() {
+        assertEquals("metric", weatherRequest.getUnits());
+    }
+
+
+    @Test
+    public void testUrlCreatedWhenCreatingRequest() {
+        assertTrue(weatherRequest.getRequestAddress() != null);
+    }
+
+
 }

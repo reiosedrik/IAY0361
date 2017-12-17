@@ -1,6 +1,6 @@
 tallinn
-Coordinates: 59:24
-Monday: min temp: 27.01°F, max temp: 33.63°F.
-Tuesday: min temp: 34.9°F, max temp: 39.3°F.
-Wednesday: min temp: 33.61°F, max temp: 37.22°F.
-Current temperature: 28.92°F
+Coordinates: 59.4:24.7
+Monday: min temp: -1.13°C, max temp: 0.68°C.
+Tuesday: min temp: -0.07°C, max temp: 1.77°C.
+Wednesday: min temp: -3.06°C, max temp: -0.35°C.
+Current temperature: -2.34°C

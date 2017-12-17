@@ -1,7 +1,6 @@
 paris
-Coordinates: 48:2
-
-Monday: madalaim temperatuur: 4.06°C, kõrgeim temperatuur: 9.61°C.
-Tuesday: madalaim temperatuur: 0.9°C, kõrgeim temperatuur: 5.31°C.
-Wednesday: madalaim temperatuur: 1.79°C, kõrgeim temperatuur: 7.23°C.
+Coordinates: 48.8:2.34
+Monday: min temp: 4.06°C, max temp: 9.61°C.
+Tuesday: min temp: 0.9°C, max temp: 5.31°C.
+Wednesday: min temp: 1.79°C, max temp: 7.23°C.
 Current temperature: 4.79°C

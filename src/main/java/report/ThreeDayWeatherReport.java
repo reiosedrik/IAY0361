@@ -19,7 +19,7 @@ public class ThreeDayWeatherReport {
     String day2Highest;
     String day3Lowest;
     String day3Highest;
-    private String city;
+//    private String city;
     private String temperatureSymbol;
 
     public ThreeDayWeatherReport(String units) {
@@ -31,21 +31,33 @@ public class ThreeDayWeatherReport {
     }
 
     public String getInfo() {
-
-        day1Lowest = Double.toString(Collections.min(temperaturesForDay1)) + temperatureSymbol;
-        day1Highest = Double.toString(Collections.max(temperaturesForDay1)) + temperatureSymbol;
-        day2Lowest = Double.toString(Collections.min(temperaturesForDay2)) + temperatureSymbol;
-        day2Highest = Double.toString(Collections.max(temperaturesForDay2)) + temperatureSymbol;
-        day3Lowest = Double.toString(Collections.min(temperaturesForDay3)) + temperatureSymbol;
-        day3Highest = Double.toString(Collections.max(temperaturesForDay3)) + temperatureSymbol;
-
+        getHighestAndLowestTempForEveryDay();
+        addUnitsToDegrees();
 
         return String.format("\n%s: min temp: %s, max temp: %s.\n" +
-                "%s: min temp: %s, max temp: %s.\n" +
-                "%s: min temp: %s, max temp: %s.",
+                        "%s: min temp: %s, max temp: %s.\n" +
+                        "%s: min temp: %s, max temp: %s.",
                 threeDays.get(0), day1Lowest, day1Highest,
                 threeDays.get(1), day2Lowest, day2Highest,
                 threeDays.get(2), day3Lowest, day3Highest);
+    }
+
+    public void getHighestAndLowestTempForEveryDay() {
+        day1Lowest = Double.toString(Collections.min(temperaturesForDay1));
+        day1Highest = Double.toString(Collections.max(temperaturesForDay1));
+        day2Lowest = Double.toString(Collections.min(temperaturesForDay2));
+        day2Highest = Double.toString(Collections.max(temperaturesForDay2));
+        day3Lowest = Double.toString(Collections.min(temperaturesForDay3));
+        day3Highest = Double.toString(Collections.max(temperaturesForDay3));
+    }
+
+    public void addUnitsToDegrees() {
+        day1Lowest += temperatureSymbol;
+        day1Highest += temperatureSymbol;
+        day2Lowest += temperatureSymbol;
+        day2Highest += temperatureSymbol;
+        day3Lowest += temperatureSymbol;
+        day3Highest += temperatureSymbol;
     }
 
 
@@ -55,7 +67,7 @@ public class ThreeDayWeatherReport {
 
 
     public void setTemperatures(List<Double> temperaturesForDay1, List<Double> temperaturesForDay2
-    , List<Double> temperaturesForDay3) {
+            , List<Double> temperaturesForDay3) {
         this.temperaturesForDay1 = temperaturesForDay1;
         this.temperaturesForDay2 = temperaturesForDay2;
         this.temperaturesForDay3 = temperaturesForDay3;
@@ -67,11 +79,15 @@ public class ThreeDayWeatherReport {
         threeDays.add(day3);
     }
 
-    public String getCity() {
-        return city;
+    public List<Double> getTemperaturesForDay1() {
+        return temperaturesForDay1;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public List<Double> getTemperaturesForDay2() {
+        return temperaturesForDay2;
+    }
+
+    public List<Double> getTemperaturesForDay3() {
+        return temperaturesForDay3;
     }
 }
